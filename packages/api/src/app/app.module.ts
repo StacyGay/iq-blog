@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Blog, BlogModule, User } from '@iq-blog/blog';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { UserController } from './user/user.controller';
 import { BlogController } from './blog/blog.controller';
 import { AuthModule } from './auth/auth.module';
@@ -11,6 +12,9 @@ import { AdminSetupModule } from './admin/admin-setup.module';
 
 @Module({
     imports: [
+        ConfigModule.forRoot({
+            isGlobal: true,
+        }),
         TypeOrmModule.forRoot({
             type: 'sqlite',
             // host: 'localhost',

@@ -16,7 +16,7 @@ export function adminModuleOptionsFactory(
         const user = await authService.validateUser(email, password);
         if (!user) return null;
         return {
-            email: user.userName,
+            email: user.username,
             password: user.password,
         };
     }

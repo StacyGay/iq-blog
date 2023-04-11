@@ -17,12 +17,12 @@ export class UserService {
         return this.userRepo.findOneBy({ userId });
     }
 
-    public getUserByName(userName: string): Promise<User | null> {
-        return this.userRepo.findOneBy({ userName });
+    public getUserByName(username: string): Promise<User | null> {
+        return this.userRepo.findOneBy({ username });
     }
 
     public async addUser(user: User): Promise<User> {
-        if (!user || !user.userName) {
+        if (!user || !user.username) {
             throw new Error('Cannot insert missing or empty user');
         }
 
@@ -31,7 +31,7 @@ export class UserService {
             return user;
         } catch (e) {
             // TODO: log error handling here
-            console.log(`Error inserting new user: ${user.userName}`);
+            console.log(`Error inserting new user: ${user.username}`);
             throw new Error(`Error inserting new user: ${e}`);
         }
     }
@@ -45,7 +45,7 @@ export class UserService {
             await this.userRepo.update({ userId }, user);
         } catch (e) {
             // TODO: log error handling here
-            console.log(`Error updating user: ${user.userName}`);
+            console.log(`Error updating user: ${user.username}`);
             throw new Error(`Error updating user: ${e}`);
         }
     }

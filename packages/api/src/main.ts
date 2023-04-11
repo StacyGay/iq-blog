@@ -18,8 +18,8 @@ async function bootstrap() {
         .setTitle('iq-blog api')
         .setDescription('The iq-blog api implementation')
         .setVersion('1.0')
-        .addTag('blog')
         .build();
+
     const document = SwaggerModule.createDocument(app, documentConfig);
     SwaggerModule.setup('api/swagger', app, document); // TODO: set swagger to api root
     

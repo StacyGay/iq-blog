@@ -5,7 +5,7 @@ export function Signup(): ReactElement {
         <div className="p-2">
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">Username</span>
+                    <span className="label-text">username</span>
                 </label>
                 <input
                     type="text"

@@ -6,7 +6,7 @@ export class User extends BaseEntity {
     userId: number;
 
     @Column({ unique: true })
-    userName: string;
+    username: string;
 
     @Column()
     displayName: string;
