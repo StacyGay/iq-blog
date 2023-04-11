@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user/user.controller';
 import { BlogController } from './blog/blog.controller';
 import { AuthModule } from './auth/auth.module';
+import { AdminSetupModule } from './admin/admin-setup.module';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
         }),
         BlogModule,
         AuthModule,
+        AdminSetupModule,
     ],
     controllers: [
         AppController, // TODO: remove AppController and AppService, set swagger to api root
