@@ -13,8 +13,12 @@ export class UserService {
         return this.userRepo.find();
     }
 
-    public getUser(userId: number): Promise<User | null> {
+    public getUserById(userId: number): Promise<User | null> {
         return this.userRepo.findOneBy({ userId });
+    }
+
+    public getUserByName(userName: string): Promise<User | null> {
+        return this.userRepo.findOneBy({ userName });
     }
 
     public async addUser(user: User): Promise<User> {

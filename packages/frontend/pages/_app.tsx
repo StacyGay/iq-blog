@@ -6,9 +6,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to frontend!</title>
+        <title>IQ-Blog</title>
       </Head>
-      <main className="app">
+      <main className="app" style={{width: '100vw'}}>
         <Component {...pageProps} />
       </main>
     </>

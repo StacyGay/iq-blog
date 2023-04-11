@@ -6,6 +6,7 @@ import { Blog, BlogModule, User } from '@iq-blog/blog';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user/user.controller';
 import { BlogController } from './blog/blog.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { BlogController } from './blog/blog.controller';
             synchronize: true, // TODO: remove for prod env
         }),
         BlogModule,
+        AuthModule,
     ],
     controllers: [
         AppController, // TODO: remove AppController and AppService, set swagger to api root

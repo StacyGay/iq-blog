@@ -1,10 +1,32 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
+import { Menu } from './menu';
+import { LoginSignup } from './login-signup';
 
 export function Header(): ReactElement {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [loginScreen, setLoginScreen] = useState<'login' | 'signup' | null>(null);
+
     return (
         <div className="navbar bg-base-100">
+            {
+                menuOpen ?
+                    <Menu 
+                        onMenuClose={() => setMenuOpen(false)} 
+                        onLogin={() => setLoginScreen('login')}
+                        onSignup={() => setLoginScreen('signup')}
+                    /> : ''
+            }
+
+            { 
+                loginScreen ? 
+                    <LoginSignup 
+                        initial={loginScreen} 
+                        onClose={() => setLoginScreen(null)} 
+                    /> : '' 
+            }
+            
             <div className="flex-none">
-                <button className="btn btn-square btn-ghost">
+                <button className="btn btn-square btn-ghost" onClick={() => setMenuOpen(true)}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
