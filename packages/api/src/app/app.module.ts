@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { Blog, BlogModule, User } from '@iq-blog/blog';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user/user.controller';
+import { BlogController } from './blog/blog.controller';
 
 @Module({
     imports: [
@@ -20,7 +21,11 @@ import { UserController } from './user/user.controller';
         }),
         BlogModule,
     ],
-    controllers: [AppController, UserController], // TODO: remove AppController and AppService, set swagger to api root
+    controllers: [
+        AppController, // TODO: remove AppController and AppService, set swagger to api root
+        UserController,
+        BlogController,
+    ], 
     providers: [AppService],
 })
 export class AppModule {}

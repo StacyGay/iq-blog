@@ -15,6 +15,15 @@
         "outputPath": "dist/packages/api",
         "main": "packages/api/src/main.ts",
         "tsConfig": "packages/api/tsconfig.app.json",
+        "transformers": [
+          {
+            "name": "@nestjs/swagger/plugin",
+            "options": {
+              "classValidatorShim": false,
+              "introspectComments": true
+            }
+          }
+        ],
         "assets": ["packages/api/src/assets"],
         "isolatedConfig": true,
         "webpackConfig": "packages/api/webpack.config.js"

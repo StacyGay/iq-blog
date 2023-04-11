@@ -13,6 +13,10 @@ export class BlogService {
         return this.blogRepo.find();
     }
 
+    public getUserBlogs(userId: number): Promise<Blog[]> {
+        return this.blogRepo.findBy({ userId: userId });
+    }
+
     public getBlog(id: number): Promise<Blog | null> {
         return this.blogRepo.findOneBy({ blogId: id });
     }
@@ -28,6 +32,20 @@ export class BlogService {
             // TODO: log error handling here
             console.log(`Error inserting new blog: ${blog.title}`);
             throw new Error(`Error inserting new blog: ${e}`);
+        }
+    }
+
+    public async updateBlog(id: number, blog: Blog): Promise<void> {
+        if (!id || !blog) {
+            throw new Error('Cannot update missing or empty blog');
+        }
+
+        try {
+            await this.blogRepo.update({ blogId: id}, blog);
+        } catch (e) {
+            // TODO: log error handling here
+            console.log(`Error updating blogId: ${blog.blogId}`);
+            throw new Error(`Error updating blog ${e}`);
         }
     }
 
