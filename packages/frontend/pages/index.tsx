@@ -1,5 +1,5 @@
-import { Header } from '../components/header';
 import { Intro } from '../components/intro';
+import { Layout } from '../components/layout';
 import styles from './index.module.scss';
 
 export function Index() {
@@ -9,10 +9,11 @@ export function Index() {
      * Note: The corresponding styles are in the ./index.scss file.
      */
     return (
-        <div className={styles.page}>
-            <Header></Header>
-            <Intro></Intro>
-        </div>
+        <Layout>
+            <div className={styles.page}>
+                <Intro></Intro>
+            </div>
+        </Layout>
     );
 }
 

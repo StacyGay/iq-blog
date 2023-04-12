@@ -1,16 +1,35 @@
-import { Blog, BlogService } from "@iq-blog/blog";
-import { Body, Controller, Get, Post, Param, Put } from "@nestjs/common";
+import { Blog, BlogService, User } from "@iq-blog/blog";
+import { Body, Controller, Get, Post, Param, Put, Req, UseGuards } from "@nestjs/common";
 import { ApiParam } from "@nestjs/swagger";
+import { Request } from 'express';
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
-@Controller('blogs')
+@Controller('blog')
 export class BlogController {
     constructor(
         private readonly blogService: BlogService
     ) {}
 
-    @Get()
+    @Get('all')
     public getBlogs(): Promise<Blog[]> {
         return this.blogService.getBlogs();
+    }
+
+    @ApiParam({
+        name: 'blogId',
+        description: 'Query blogs by this blogId',
+        required: true,
+        type: Number
+    })
+    @Get('all/:blogId')
+    public getBlog(@Param('blogId') blogId: string): Promise<Blog> {
+        return this.blogService.getBlog(+blogId);
+    }
+
+    @Get('account')
+    @UseGuards(JwtAuthGuard)
+    public getAccountBlogs(@Req() req: Request): Promise<Blog[]> {
+        return this.blogService.getUserBlogs((req.user as User).userId);
     }
 
     @ApiParam({
@@ -30,7 +49,7 @@ export class BlogController {
     }
 
     @Post(':userId')
-    public async addUserBlog(@Param() userId: string, @Body() blog: Blog): Promise<boolean> {
+    public async addUserBlog(@Param('userId') userId: string, @Body() blog: Blog): Promise<boolean> {
         try {
             await this.blogService.addBlog(blog);
             return true;

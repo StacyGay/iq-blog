@@ -1,28 +1,14 @@
 import { ReactElement, useState } from 'react';
 import { Menu } from './menu';
-import { LoginSignup } from './login-signup';
+import Link from 'next/link';
 
 export function Header(): ReactElement {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [loginScreen, setLoginScreen] = useState<'login' | 'signup' | null>(null);
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 sticky top-0">
             {
-                menuOpen ?
-                    <Menu 
-                        onMenuClose={() => setMenuOpen(false)} 
-                        onLogin={() => setLoginScreen('login')}
-                        onSignup={() => setLoginScreen('signup')}
-                    /> : ''
-            }
-
-            { 
-                loginScreen ? 
-                    <LoginSignup 
-                        initial={loginScreen} 
-                        onClose={() => setLoginScreen(null)} 
-                    /> : '' 
+                menuOpen ? <Menu onMenuClose={() => setMenuOpen(false)} /> : ''
             }
             
             <div className="flex-none">
@@ -43,7 +29,7 @@ export function Header(): ReactElement {
                 </button>
             </div>
             <div className="flex-1">
-                <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                <Link href="/" className="btn btn-ghost normal-case text-xl">IQ-Blog</Link>
             </div>
             <div className="flex-none">
                 <button className="btn btn-square btn-ghost">
