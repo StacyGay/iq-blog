@@ -5,7 +5,11 @@
   "scripts": {
     "dev:api": "npx nx serve api",
     "dev:frontend": "npx nx serve frontend",
-    "dev": "npm-run-all -p -r dev:api dev:frontend"
+    "dev": "npm-run-all -p -r dev:api dev:frontend",
+    "test:api": "npx nx test api",
+    "test:frontend": "npx nx test frontend",
+    "test": "npm run test:api && npm run test:frontend",
+    "graph": "npx nx graph"
   },
   "private": true,
   "devDependencies": {
