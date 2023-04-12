@@ -1,22 +1,19 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Blog extends BaseEntity {
+export class BlogComment extends BaseEntity {
     @PrimaryGeneratedColumn()
-    blogId: number;
+    commentId: number;
 
     @Column()
-    userId: number;
+    blogId: number;
+
+    @Column({ nullable: true })
+    parentId: number;
 
     @Column({ default: 'admin' })
     author: string;
 
     @Column()
-    title: string;
-
-    @Column()
     content: string;
-
-    @Column({ default: () => "CURRENT_TIMESTAMP"})
-    timestamp: Date
 }

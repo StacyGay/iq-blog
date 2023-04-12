@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ReactElement } from 'react';
+import { authService } from '../services/auth.service';
 
 export interface MenuProps {
     onMenuClose: () => void;
@@ -12,6 +13,13 @@ export function Menu(props: MenuProps): ReactElement {
                 <li>
                     <Link href="/blog">List Blogs</Link>
                 </li>
+                {authService.isLoggedIn ? (
+                    <li>
+                        <Link href="/manage">Manage Blogs</Link>
+                    </li>
+                ) : (
+                    ''
+                )}
                 <li>
                     <Link href="/account/signup">Sign Up</Link>
                 </li>

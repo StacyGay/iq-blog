@@ -17,7 +17,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         username: string;
         sub: string;
     }): Promise<{ userId: string; username: string }> {
-        console.log('jwt payload', payload);
         return Promise.resolve({ userId: payload.sub, username: payload.username });
     }
 }

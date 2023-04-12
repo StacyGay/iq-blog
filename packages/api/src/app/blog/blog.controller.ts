@@ -1,5 +1,5 @@
 import { Blog, BlogService, User } from "@iq-blog/blog";
-import { Body, Controller, Get, Post, Param, Put, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Param, Put, Req, UseGuards, Delete } from "@nestjs/common";
 import { ApiParam } from "@nestjs/swagger";
 import { Request } from 'express';
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
@@ -9,6 +9,16 @@ export class BlogController {
     constructor(
         private readonly blogService: BlogService
     ) {}
+
+    @Post()
+    @UseGuards(JwtAuthGuard)
+    public async postNewBlog(@Body() blog: Blog, @Req() request: Request): Promise<void> {
+        const user = request.user as User;
+        if (!user) throw new Error('user not found');
+        blog.userId = user.userId;
+        blog.author = user.username;
+        await this.blogService.addBlog(blog);
+    }
 
     @Get('all')
     public getBlogs(): Promise<Blog[]> {
@@ -60,10 +70,10 @@ export class BlogController {
         }
     }
 
-    @Put(':userId/:blogId')
-    public async updateUserBlog(
-        @Param() userId: string, 
-        @Param() blogId, 
+    @Put(':blogId')
+    @UseGuards(JwtAuthGuard)
+    public async updateBlog(
+        @Param('blogId') blogId, 
         @Body() blog: Blog,
     ): Promise<boolean> {
         try {
@@ -71,8 +81,14 @@ export class BlogController {
             return true;
         } catch (e) {
             // TODO: Add logging
-            console.log(`Error updating blog ${e}`);
+            console.log(`Error updating blog ${blogId}: ${e}`);
             return false;
         }
+    }
+
+    @Delete(':blogId')
+    @UseGuards(JwtAuthGuard)
+    public async deleteBlog(@Param('blogId') blogId: string): Promise<void> {
+        await this.blogService.removeBlog(+blogId);
     }
 }

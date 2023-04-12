@@ -6,7 +6,7 @@ export function Header(): ReactElement {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <div className="navbar bg-base-100 sticky top-0">
+        <div className="navbar bg-base-100 sticky top-0 z-20">
             {
                 menuOpen ? <Menu onMenuClose={() => setMenuOpen(false)} /> : ''
             }

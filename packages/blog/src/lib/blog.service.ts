@@ -41,7 +41,13 @@ export class BlogService {
         }
 
         try {
-            await this.blogRepo.update({ blogId: id}, blog);
+            const existing = await this.blogRepo.findOneBy({ blogId: id });
+            if (!existing) {
+                throw new Error('Cannot update blog that does not exist');
+            }
+            existing.title = blog.title;
+            existing.content = blog.content;
+            await this.blogRepo.update({ blogId: id}, existing);
         } catch (e) {
             // TODO: log error handling here
             console.log(`Error updating blogId: ${blog.blogId}`);

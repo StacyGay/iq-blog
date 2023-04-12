@@ -2,25 +2,16 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './user.service';
 import { BlogService } from './blog.service';
-import { User, Blog } from '../entities';
+import { User, Blog, BlogComment } from '../entities';
+import { CommentService } from './comment.service';
 
 
 @Module({
     imports: [
-        // TypeOrmModule.forRoot({
-        //     type: 'sqlite',
-        //     // host: 'localhost',
-        //     // port: 3306,
-        //     // username: 'root',
-        //     // password: 'root',
-        //     database: 'blog',
-        //     entities: [User, Blog],
-        //     synchronize: true, // TODO: remove for prod env
-        // }),
-        TypeOrmModule.forFeature([User, Blog])
+        TypeOrmModule.forFeature([User, Blog, BlogComment])
     ],
     controllers: [],
-    providers: [UserService, BlogService],
-    exports: [UserService, BlogService],
+    providers: [UserService, BlogService, CommentService],
+    exports: [UserService, BlogService, CommentService],
 })
 export class BlogModule {}

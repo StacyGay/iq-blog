@@ -14,6 +14,7 @@ export class AuthService {
         password: string,
     ): Promise<User | null> {
         const user = await this.userService.getUserByName(username);
+        // TODO: use bcrypt
         if (user && user.password === password) {
             return user;
         }

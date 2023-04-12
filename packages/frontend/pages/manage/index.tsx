@@ -2,17 +2,23 @@ import { Blog } from '@iq-blog/blog';
 import { Layout } from '../../components/layout';
 import { ReactElement, useEffect, useState } from 'react';
 import { blogService } from '../../services/blog.service';
-import { BlogListItem } from '../../components/blog-list-item';
 import Link from 'next/link';
 import { AuthGuard } from '../../components/auth-guard';
 
 export default function ManageBlogLlist(): ReactElement {
     const [blogs, setBlogs] = useState<Blog[]>([]);
+
+    const getBlogs = async () => {
+        const blogs = await blogService.getListByAccount();
+        setBlogs(blogs);
+    };
+
+    const removeBlog = async (blogId: number) => {
+        await blogService.removeBlog(blogId);
+        getBlogs();
+    }
+
     useEffect(() => {
-        const getBlogs = async () => {
-            const blogs = await blogService.getListByAccount();
-            setBlogs(blogs);
-        };
         getBlogs();
     }, []);
 
@@ -20,6 +26,9 @@ export default function ManageBlogLlist(): ReactElement {
         <AuthGuard>
             <Layout>
                 <div className="overflow-x-auto">
+                    <Link className="btn btn-success" href="manage/add">
+                        + Add new blog
+                    </Link>
                     <table className="table w-full">
                         {/* head */}
                         <thead>
@@ -42,12 +51,12 @@ export default function ManageBlogLlist(): ReactElement {
                                         >
                                             Edit
                                         </Link>
-                                        <Link 
+                                        <a 
                                             className="btn btn-outline btn-danger mx-4" 
-                                            href={`manage/delete/${b.blogId}`}
+                                            onClick={() => removeBlog(b.blogId)}
                                         >
                                             Delete
-                                        </Link>
+                                        </a>
                                     </td>
                                 </tr>
                             )}

@@ -26,6 +26,8 @@ export class UserService {
             throw new Error('Cannot insert missing or empty user');
         }
 
+        // TODO: use bcrypt to encrypt password
+
         try {
             await this.userRepo.insert(user);
             return user;
