@@ -18,7 +18,7 @@ export class CommentController {
         type: Number,
     })
     @Get(':blogId')
-    public getUserBlogs(@Param('blogId') blogId: string): Promise<BlogComment[]> {
+    public getBlogComments(@Param('blogId') blogId: string): Promise<BlogComment[]> {
         return this.commentService.getBlogComments(+blogId);
     }
 
@@ -30,7 +30,7 @@ export class CommentController {
     })
     @Post(':blogId')
     @UseGuards(JwtAuthGuard)
-    public async getAccountBlogs(
+    public async postComment(
         @Req() req: Request,
         @Param('blogId') blogId: string,
         @Body() comment: BlogComment,
