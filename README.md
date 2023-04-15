@@ -43,5 +43,34 @@ npm run test:api
 npm run test:frontend
 ```
 
+## Production build
+```
+npm run prod:api
+npm run prod:frontend
+```
+
 ## Deploying to Docker
-This is a work in progress
+This is a work in progress. Note that the resulting docker image is not optimized at all.
+It is only meant as an example for deploying iq-blog to docker.
+
+### Build the image
+After you have run a production build you can run the following command to build the docker image
+```
+npm run docker:build
+```
+Then to run the resulting docker image
+```
+npm run docker:run
+```
+The entire build and run process can be accomplished by running the following
+```
+npm run docker
+```
+
+Alternatively a docker-compose.yml is provided. 
+If you have already run the production builds you can build and run the image using the following
+```
+docker compose up
+```
+
+After running, the container can be accessed by navigating to http://localhost:4200
